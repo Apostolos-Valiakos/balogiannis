@@ -847,3 +847,197 @@ h1,h2,h3,h4 { line-height: 1.12; letter-spacing: -.022em; }
 
 /* Specific override: scard hover also shows bottom bar */
 .scard.reveal-card.visible:hover { transform: translateY(-4px); }
+
+/* ================================================
+   SCROLL PROGRESS BAR
+   ================================================ */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--amber) 0%, #F5B048 100%);
+  z-index: 9999;
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+  transition: width 80ms linear;
+}
+
+/* ================================================
+   STATS STRIP
+   ================================================ */
+.stats-strip {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.stat-divider { display: none; }
+@media (min-width: 640px) {
+  .stats-grid { grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; }
+  .stat-divider {
+    display: block;
+    width: 1px;
+    height: 52px;
+    background: var(--border);
+    align-self: center;
+    justify-self: center;
+  }
+}
+.stat-item {
+  padding: 48px 24px;
+  text-align: center;
+}
+@media (max-width: 639px) {
+  .stats-grid .stat-item:nth-child(1),
+  .stats-grid .stat-item:nth-child(5) { border-right: 1px solid var(--border); }
+  .stats-grid .stat-item:nth-child(1),
+  .stats-grid .stat-item:nth-child(3) { border-bottom: 1px solid var(--border); }
+}
+.stat-num {
+  display: block;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(38px, 5.5vw, 62px);
+  font-weight: 700;
+  color: var(--amber);
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: -.02em;
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text2);
+}
+
+/* ================================================
+   HERO DOT GRID
+   ================================================ */
+.hero-dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+[data-theme="dark"] .hero-dot-grid { opacity: 0.18; }
+
+/* ================================================
+   HERO LOGO FLOAT ANIMATION
+   ================================================ */
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+.hero-logo-wrap.visible .hero-logo-img {
+  animation: logo-float 6s ease-in-out infinite;
+}
+.hero-logo-wrap:hover .hero-logo-img {
+  animation-play-state: paused;
+}
+
+/* ================================================
+   DIAGONAL SECTION CUTS (768px +)
+   ================================================ */
+@media (min-width: 768px) {
+  .hero {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 72px), 0 100%);
+    padding-bottom: calc(96px + 72px);
+    z-index: 2;
+  }
+  .stats-strip {
+    margin-top: -72px;
+    border-bottom: none;
+  }
+  .stats-strip .stats-grid {
+    padding-top: 72px;
+  }
+  .work { position: relative; z-index: 1; }
+  .cta-section {
+    clip-path: polygon(0 72px, 100% 0, 100% 100%, 0 100%);
+    margin-top: -72px;
+    padding-top: calc(140px + 72px);
+    z-index: 2;
+  }
+}
+
+/* ================================================
+   CTA SECTION UPGRADE
+   ================================================ */
+.cta-section {
+  background: linear-gradient(135deg, #0D1B3E 0%, #1B2C6E 40%, #0E1628 100%);
+}
+.cta-deco {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -58%);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(260px, 36vw, 500px);
+  line-height: 0.75;
+  color: rgba(255, 255, 255, 0.028);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  letter-spacing: -.04em;
+}
+
+/* ================================================
+   SERVICE CARD ICON HOVER ANIMATION
+   ================================================ */
+.scard-icon svg {
+  transition: transform 0.35s cubic-bezier(.34, 1.56, .64, 1),
+              filter 0.35s ease;
+}
+.scard:hover .scard-icon svg {
+  transform: scale(1.18) rotate(8deg);
+  filter: drop-shadow(0 0 10px rgba(232, 148, 26, 0.5));
+}
+
+/* ================================================
+   MOBILE FLOATING CTA
+   ================================================ */
+.mobile-fab {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120px);
+  z-index: 800;
+  background: var(--amber);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  padding: 15px 32px;
+  border-radius: 50px;
+  box-shadow: 0 8px 32px rgba(232, 148, 26, 0.45),
+              0 2px 8px rgba(0, 0, 0, .12);
+  transition: transform 0.45s cubic-bezier(.34, 1.56, .64, 1),
+              opacity 0.3s ease,
+              box-shadow 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.mobile-fab.fab-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-fab:hover {
+  box-shadow: 0 12px 40px rgba(232, 148, 26, 0.55),
+              0 4px 12px rgba(0, 0, 0, .15);
+}
+@media (min-width: 900px) {
+  .mobile-fab { display: none; }
+}

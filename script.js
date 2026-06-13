@@ -103,3 +103,78 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     window.scrollTo({ top, behavior: 'smooth' });
   });
 });
+
+/* ================================================
+   SCROLL PROGRESS BAR
+   ================================================ */
+(function () {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  function update() {
+    const scrollTop  = window.scrollY;
+    const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width  = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* ================================================
+   ANIMATED STAT COUNTERS
+   ================================================ */
+(function () {
+  const nums = document.querySelectorAll('.stat-num');
+  if (!nums.length) return;
+
+  function animateCounter(el) {
+    const target   = +el.dataset.target;
+    const prefix   = el.dataset.prefix || '';
+    const suffix   = el.dataset.suffix || '';
+    const duration = 1800;
+    const t0       = performance.now();
+
+    function tick(now) {
+      const t      = Math.min((now - t0) / duration, 1);
+      const eased  = 1 - Math.pow(1 - t, 3);
+      el.textContent = prefix + Math.round(eased * target) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+
+    el.textContent = prefix + '0' + suffix;
+    requestAnimationFrame(tick);
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      animateCounter(e.target);
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.6 });
+
+  nums.forEach(el => obs.observe(el));
+})();
+
+/* ================================================
+   MOBILE FLOATING CTA
+   ================================================ */
+(function () {
+  const fab     = document.getElementById('mobileFab');
+  const hero    = document.getElementById('hero');
+  const contact = document.getElementById('contact');
+  if (!fab || !hero || !contact) return;
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.target.id === 'hero') {
+        fab.classList.toggle('fab-visible', !e.isIntersecting);
+      }
+      if (e.target.id === 'contact' && e.isIntersecting) {
+        fab.classList.remove('fab-visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  obs.observe(hero);
+  obs.observe(contact);
+})();

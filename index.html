@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div id="scroll-progress" aria-hidden="true"></div>
     <!-- NAVIGATION -->
     <header class="nav" id="nav" role="banner">
       <div class="container nav-container">
@@ -110,6 +111,7 @@
     <main>
       <!-- HERO -->
       <section class="hero" id="hero" aria-labelledby="hero-heading">
+        <div class="hero-dot-grid" aria-hidden="true"></div>
         <div class="container hero-grid">
           <!-- All text in one block — left column -->
           <div class="hero-content">
@@ -166,6 +168,31 @@
               class="hero-logo-img"
               style="height: 300px; width: auto"
             />
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS STRIP -->
+      <section class="stats-strip" aria-label="Key metrics">
+        <div class="container stats-grid">
+          <div class="stat-item reveal-up">
+            <span class="stat-num" data-target="50" data-suffix="+">50+</span>
+            <span class="stat-label">Brands Scaled</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item reveal-up" style="--d:0.1s">
+            <span class="stat-num" data-prefix="+" data-target="340" data-suffix="%">+340%</span>
+            <span class="stat-label">Avg. ROAS Growth</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item reveal-up" style="--d:0.2s">
+            <span class="stat-num" data-prefix="€" data-target="12" data-suffix="M+">€12M+</span>
+            <span class="stat-label">Ad Spend Managed</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item reveal-up" style="--d:0.3s">
+            <span class="stat-num" data-target="8" data-suffix=" Yrs">8 Yrs</span>
+            <span class="stat-label">Industry Experience</span>
           </div>
         </div>
       </section>
@@ -575,6 +602,7 @@
 
       <!-- CONTACT CTA -->
       <section class="cta-section" id="contact" aria-labelledby="cta-heading">
+        <span class="cta-deco" aria-hidden="true">"</span>
         <div class="container cta-inner">
           <p class="eyebrow eyebrow-light reveal-fade">Get in Touch</p>
           <h2 class="reveal-up" id="cta-heading">
@@ -678,6 +706,7 @@
       </div>
     </footer>
 
+    <a href="mailto:info@balogiannis-v.com?subject=Book%20a%20Call" class="mobile-fab" id="mobileFab" aria-label="Book a Call">Book a Call →</a>
     <script src="script.js"></script>
   </body>
 </html>
